@@ -6,13 +6,6 @@ import models from './models'
 import 'taro-ui/dist/style/index.scss'
 import './app.less'
 
-
-// 如果需要在 h5 环境中开启 React Devtools
-// 取消以下注释：
-// if (process.env.NODE_ENV !== 'production' && process.env.TARO_ENV === 'h5')  {
-//   require('nerv-devtools')
-// }
-
 const dvaApp = dva.createApp({
   initialState: {},
   models: models,
@@ -31,6 +24,7 @@ class App extends Component {
       'pages/index/index',
       'pages/mine/index',
       'pages/objective/index',
+      'pages/mine/login'
     ],
     window: {
       navigationBarTitleText: '懒得记',
