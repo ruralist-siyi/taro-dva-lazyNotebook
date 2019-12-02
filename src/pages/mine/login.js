@@ -1,9 +1,11 @@
 import { View, Text } from '@tarojs/components';
+import LoginForm from '../../components/mine/LoginForm';
+import './index.less';
 
 function Login() {
   return (
-  <View className="mine">
-      Login
+  <View className="login">
+     <LoginForm />
   </View>
   )
 }

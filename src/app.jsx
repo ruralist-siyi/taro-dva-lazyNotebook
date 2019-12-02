@@ -29,7 +29,7 @@ class App extends Component {
     window: {
       navigationBarTitleText: '懒得记',
       navigationBarBackgroundColor: '#0876e4',
-      enablePullDownRefresh: true
+      enablePullDownRefresh: false
     },
     tabBar: {
       backgroundColor: '#fafafa',
