@@ -5,6 +5,7 @@ import dva from './utils/dva'
 import models from './models'
 import 'taro-ui/dist/style/index.scss'
 import './app.less'
+import { AtMessage } from 'taro-ui'
 
 const dvaApp = dva.createApp({
   initialState: {},
@@ -74,6 +75,7 @@ class App extends Component {
     return (
       <Provider store={store}>
          <Index />
+         <AtMessage />
       </Provider>
     )
   }
