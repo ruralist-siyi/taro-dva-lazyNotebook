@@ -25,12 +25,13 @@ class App extends Component {
       'pages/index/index',
       'pages/mine/index',
       'pages/objective/index',
-      'pages/mine/login'
+      'pages/mine/login',
+      'pages/objective/add',
     ],
     window: {
       navigationBarTitleText: '懒得记',
       navigationBarBackgroundColor: '#0876e4',
-      enablePullDownRefresh: false
+      enablePullDownRefresh: true
     },
     tabBar: {
       backgroundColor: '#fafafa',
