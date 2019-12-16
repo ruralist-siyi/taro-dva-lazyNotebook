@@ -1,9 +1,11 @@
 export default {
   namespace: "global",
-  state: {},
+  state: {
+    isLogin: true
+  },
   reducers: {
-    save(state, { payload }) {
-      return { ...state, ...payload };
+    changeLoginState(state, { payload }) {
+      return { ...state, isLogin: payload };
     }
   },
   effects: {

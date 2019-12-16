@@ -2,7 +2,7 @@ import Taro, { useState } from "@tarojs/taro";
 import { View, Text } from "@tarojs/components";
 import { AtForm, AtInput, AtButton, AtToast } from "taro-ui";
 import request from '../../utils/request';
-
+import {dispatch} from "../../utils/dva";
 import "./index.less";
 
 function LoginForm() {
@@ -22,6 +22,10 @@ function LoginForm() {
         setToastIcon('check');
         setOpenStatus(true);
         Taro.setStorageSync("userInfo", result);
+        dispatch({
+          type: 'global/changeLoginState',
+          payload: true
+        })
         Taro.reLaunch({url: '/pages/mine/index'})
       }
     })

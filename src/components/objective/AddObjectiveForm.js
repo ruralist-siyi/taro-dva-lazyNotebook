@@ -9,14 +9,26 @@ import "./index.less";
 function AddObjectiveForm() {
   const [startTime, setStartTime] = useState(dayjs().format("YYYY-MM-DD"));
   const [endTime, setEndTime] = useState("");
-  const [grade, setGrade] = useState(1);
+  const [weight, setWeight] = useState(1);
   const [content, setContent] = useState("");
   const [toastOpenStatus, setOpenStatus] = useState(false);
   const [toastMsg, setToastMsg] = useState(null);
   const [toastIcon, setToastIcon] = useState(null);
 
   const addObjective = () => {
-
+    request('/objective/create', {
+      startTime,
+      endTime,
+      weight,
+      content
+    }).then((data) => {
+      if(data) {
+        setToastMsg('登录成功');
+        setToastIcon('check');
+        setOpenStatus(true);
+        Taro.reLaunch({url: '/pages/objective/index'})
+      }
+    })
   };
 
   return (
@@ -50,14 +62,14 @@ function AddObjectiveForm() {
         </View>
         <View className="form-item">
           <Text className="left">重要程度</Text>
-          <AtRate className="right" value={grade} onChange={setGrade} />
+          <AtRate className="right" value={weight} onChange={setWeight} />
         </View>
         <View className="content">
           <Text className="content-title">小目标</Text>
           <View className="content-write">
           <AtTextarea
             value={content}
-            onChange={setContent}
+            onChange={(e) => {setContent(e.target.value)}}
             maxLength={200}
             placeholder='懒东西，留下你的小目标...'
           />

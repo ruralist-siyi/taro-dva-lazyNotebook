@@ -1,26 +1,55 @@
-import {useState, useEffect} from '@tarojs/taro';
+import Taro, { Component, useState, useEffect} from '@tarojs/taro';
 import { View, Text } from '@tarojs/components';
-import { AtMessage } from 'taro-ui'
+import { AtMessage } from 'taro-ui';
+import {connect} from '@tarojs/redux'
 import UserInfo from '../../components/mine/UserInfo';
 import ActionList from '../../components/mine/ActionList';
 import request from '../../utils/request';
 
-function Mine() {
+@connect(({global}) => ({
+  global
+}))
+export default class Mine extends Component {
+  state = {}
 
-  useEffect(() => {
+  componentDidShow() {
     const userInfo =  Taro.getStorageSync("userInfo");
     if(userInfo) {
       request('/user/queryDetail', {userId: userInfo.userId}, 'GET');
+    }else {
+      this.props.dispatch({
+        type: 'global/changeLoginState',
+        payload: false
+      })
     }
-  }, [])
+  }
 
-  return (
-  <View className="mine">
-    <UserInfo />
+  render() {
+    return (
+      <View className="mine">
+    <UserInfo isLogin = {this.props.global.isLogin} />
     <ActionList />
     <AtMessage />
   </View>
-  )
+    )
+  }
 }
+// function Mine() {
 
-export default Mine;
+//   useEffect(() => {
+//     const userInfo =  Taro.getStorageSync("userInfo");
+//     if(userInfo) {
+//       request('/user/queryDetail', {userId: userInfo.userId}, 'GET');
+//     }
+//   }, [])
+
+//   return (
+//   <View className="mine">
+//     <UserInfo />
+//     <ActionList />
+//     <AtMessage />
+//   </View>
+//   )
+// }
+
+// export default Mine;

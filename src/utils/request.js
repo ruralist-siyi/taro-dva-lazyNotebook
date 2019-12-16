@@ -1,7 +1,7 @@
 import Taro from "@tarojs/taro";
+import {dispatch} from "./dva";
 
 const baseUrl = "http://localhost:3000";
-
 
 function checkSaveToken(header) {
   const { authorization } = header;
@@ -19,16 +19,19 @@ export default function createApiRequest(url, data = {}, method = "POST", checkT
     },
     header: {
       "Content-Type": "application/json;charset=UTF-8",
-      "authorization": checkToken ? "Bearer " + Taro.getStorageSync("token") : null
+      authorization: checkToken ? "Bearer " + Taro.getStorageSync("token") : null
     }
   }).then(res => {
-    if(res.statusCode === 401) {
+    const result = res.data;
+    checkSaveToken(res.header);
+    if (res.statusCode === 401) {
       Taro.removeStorageSync("token");
       Taro.removeStorageSync("userInfo");
+      dispatch({
+        type: 'global/changeLoginState',
+        payload: false
+      })
     }
-    console.log('request =>', res);
-    checkSaveToken(res.header);
-    const result = res.data;
     if (result.code !== "000000") {
       Taro.atMessage({
         message: result.msg || "请求错误",
