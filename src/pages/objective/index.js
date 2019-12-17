@@ -1,7 +1,7 @@
 import Taro, { useState, useEffect } from "@tarojs/taro";
 import { View, Text, Image } from "@tarojs/components";
 import { AtFab } from "taro-ui";
-import ObjectiveList from '../../components/objective/ObjectiveList'
+import ObjectiveList from "../../components/objective/ObjectiveList";
 import request from "../../utils/request";
 
 function Objective() {
@@ -14,21 +14,26 @@ function Objective() {
     Taro.navigateTo({ url: "add" });
   };
 
+  const fetchData = () => {
+    request("/objective/queryForPage", { page: 1, size: 10 }, "GET").then(data => {
+      if (data) {
+        setData(data);
+      }
+    });
+  };
+
   useEffect(() => {
     const userInfo = Taro.getStorageSync("userInfo");
     if (userInfo) {
-      request("/objective/queryForPage", { page: 1, size: 10 }, "GET").then((data) => {
-        if(data) {
-          setData(data);
-        }
-      });
+      fetchData();
     }
   }, []);
 
   return (
     <View className="objective">
-      {data.rows && data.rows.length > 0 ?
-      <ObjectiveList/> : (
+      {data.rows && data.rows.length > 0 ? (
+        <ObjectiveList data={data} fetchData={fetchData}/>
+      ) : (
         <View className="no-content-wrap">
           <Image
             style="width: 100%;background: #fff;"

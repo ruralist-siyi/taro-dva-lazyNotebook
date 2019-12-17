@@ -18,8 +18,6 @@ function UserInfo({isLogin}) {
     setUserName("我才懒得记录");
   }
 
-  console.log(isLogin);
-
   return (
     <View className="user-info">
       <View className="user-icon-wrap" onClick={handleClick}>

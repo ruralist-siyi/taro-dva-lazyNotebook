@@ -1,27 +1,32 @@
 import Taro, { useState } from "@tarojs/taro";
-import { View, Text } from "@tarojs/components";
-import { AtList, AtListItem, AtSwipeAction } from "taro-ui";
+import { AtListItem, AtSwipeAction, AtRate } from "taro-ui";
 
-function ObjectiveListItem({deleteObjective}) {
-  const deleteItem = (e) => {
+function ObjectiveListItem({deleteObjective, setTop, info}) {
+
+  const handleClick = (e) => {
     if(e.text === '删除') {
-      this.props.deleteObjective();
+      deleteObjective(e.id);
+    }
+    if(e.text === '置顶') {
+      setTop(e.id);
     }
   };
 
   return (
     <AtSwipeAction
-      onClick={deleteItem}
+      onClick={handleClick}
       autoClose={true}
       options={[
         {
-          text: "取消",
+          text: "删除",
+          id: info && info.id,
           style: {
             backgroundColor: "#FF4949"
           },
         },
         {
-          text: "删除",
+          text: "置顶",
+          id: info && info.id,
           style: {
             backgroundColor: "#6190E8"
           }
@@ -30,10 +35,9 @@ function ObjectiveListItem({deleteObjective}) {
     >
       <AtListItem
         arrow="right"
-        note="描述信息"
-        title="标题文字标题文字标题文字标题文字标题文字"
-        extraText="详细信息详细信息详细信息详细信息"
-        thumb={require("../../assets/icons/lindang-colorful.png")}
+        note={info && info.note}
+        title={info && info.title}
+        thumb={(info && info.isTop) ? require("../../assets/icons/top-lindang.png"):require("../../assets/icons/lindang-colorful.png")}
       />
     </AtSwipeAction>
   );

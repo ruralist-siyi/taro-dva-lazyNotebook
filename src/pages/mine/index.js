@@ -1,55 +1,36 @@
-import Taro, { Component, useState, useEffect} from '@tarojs/taro';
-import { View, Text } from '@tarojs/components';
-import { AtMessage } from 'taro-ui';
-import {connect} from '@tarojs/redux'
-import UserInfo from '../../components/mine/UserInfo';
-import ActionList from '../../components/mine/ActionList';
-import request from '../../utils/request';
+import Taro, { Component } from "@tarojs/taro";
+import { View, Text } from "@tarojs/components";
+import { AtMessage } from "taro-ui";
+import { connect } from "@tarojs/redux";
+import UserInfo from "../../components/mine/UserInfo";
+import ActionList from "../../components/mine/ActionList";
+import request from "../../utils/request";
 
-@connect(({global}) => ({
+@connect(({ global }) => ({
   global
 }))
 export default class Mine extends Component {
-  state = {}
+  state = {};
 
   componentDidShow() {
-    const userInfo =  Taro.getStorageSync("userInfo");
-    if(userInfo) {
-      request('/user/queryDetail', {userId: userInfo.userId}, 'GET');
-    }else {
+    const userInfo = Taro.getStorageSync("userInfo");
+    if (userInfo) {
+      request("/user/queryDetail", { userId: userInfo.userId }, "GET");
+    } else {
       this.props.dispatch({
-        type: 'global/changeLoginState',
+        type: "global/changeLoginState",
         payload: false
-      })
+      });
     }
   }
 
   render() {
     return (
       <View className="mine">
-    <UserInfo isLogin = {this.props.global.isLogin} />
-    <ActionList />
-    <AtMessage />
-  </View>
-    )
+        <UserInfo isLogin={this.props.global.isLogin} />
+        <ActionList />
+        <AtMessage />
+      </View>
+    );
   }
 }
-// function Mine() {
-
-//   useEffect(() => {
-//     const userInfo =  Taro.getStorageSync("userInfo");
-//     if(userInfo) {
-//       request('/user/queryDetail', {userId: userInfo.userId}, 'GET');
-//     }
-//   }, [])
-
-//   return (
-//   <View className="mine">
-//     <UserInfo />
-//     <ActionList />
-//     <AtMessage />
-//   </View>
-//   )
-// }
-
-// export default Mine;

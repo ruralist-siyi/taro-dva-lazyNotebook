@@ -21,8 +21,8 @@ const store = dvaApp.getStore();
 class App extends Component {
   config = {
     pages: [
-      "pages/mine/index",
       "pages/index/index",
+      "pages/mine/index",
       "pages/objective/index",
       "pages/mine/login",
       "pages/objective/add"
@@ -30,7 +30,7 @@ class App extends Component {
     window: {
       navigationBarTitleText: "懒得记",
       navigationBarBackgroundColor: "#0876e4",
-      enablePullDownRefresh: true
+      enablePullDownRefresh: false
     },
     tabBar: {
       backgroundColor: "#fafafa",
