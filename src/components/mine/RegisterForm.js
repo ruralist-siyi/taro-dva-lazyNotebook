@@ -8,37 +8,37 @@ import "./index.less";
 function LoginForm() {
   const [userName, setUserName] = useState(null);
   const [password, setPassword] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [phone, setPhone] = useState(null);
   const [toastOpenStatus, setOpenStatus] = useState(false);
   const [toastMsg, setToastMsg] = useState(null);
   const [toastIcon, setToastIcon] = useState(null);
 
-  const login = () => {
-    request('/user/login', {
+  const createUser = () => {
+    request('/user/create', {
       userName,
-      userPassword: password
-    }, 'POST', false).then((result) => {
+      userPassword: password,
+      email,
+      phone
+    }, 'POST', true).then((result) => {
       if(result) {
-        setToastMsg('登录成功');
+        setToastMsg('创建成功，前去登录');
         setToastIcon('check');
         setOpenStatus(true);
-        Taro.setStorageSync("userInfo", result);
         dispatch({
           type: 'global/changeLoginState',
           payload: true
         })
-        Taro.reLaunch({url: '/pages/mine/index'})
+        setTimeout(() => {
+          Taro.navigateTo({url: '../mine/login'})
+        }, 2000)
       }
     })
   }
 
-  const goRegister = () => {
-    console.log(222);
-    Taro.navigateTo({url: '../mine/register'})
-  }
-
   return (
     <View className="login-form">
-      <AtForm onSubmit={login}>
+      <AtForm onSubmit={createUser}>
         <AtInput
           name="userName"
           title="用户名"
@@ -55,10 +55,23 @@ function LoginForm() {
           value={password}
           onChange={setPassword}
         />
+        <AtInput
+          name="password"
+          title="邮箱"
+          type="text"
+          placeholder="请输入邮箱"
+          value={email}
+          onChange={setEmail}
+        />
+        <AtInput
+          name="phone"
+          title="手机号"
+          type="phone"
+          placeholder="请输入手机号"
+          value={phone}
+          onChange={setPhone}
+        />
         <AtButton className="primary-btn login-btn" circle={true} formType="submit">
-          登录
-        </AtButton>
-        <AtButton onClick={goRegister} className="register-btn" circle={true}>
           注册
         </AtButton>
       </AtForm>

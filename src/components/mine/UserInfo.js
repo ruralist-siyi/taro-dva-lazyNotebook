@@ -12,7 +12,7 @@ function UserInfo({isLogin}) {
     Taro.navigateTo({ url: "login" });
   };
 
-  if (isLogin) {
+  if (isLogin && userInfo) {
     setUserName("懒宝-" + userInfo.userName);
   }else {
     setUserName("我才懒得记录");

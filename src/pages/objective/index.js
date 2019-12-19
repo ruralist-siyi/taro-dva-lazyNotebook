@@ -1,6 +1,6 @@
 import Taro, { useState, useEffect } from "@tarojs/taro";
 import { View, Text, Image } from "@tarojs/components";
-import { AtFab } from "taro-ui";
+import { AtFab, AtMessage } from "taro-ui";
 import ObjectiveList from "../../components/objective/ObjectiveList";
 import request from "../../utils/request";
 
@@ -47,6 +47,7 @@ function Objective() {
           <Text className="at-fab__icon at-icon at-icon-add"></Text>
         </AtFab>
       </View>
+      <AtMessage />
     </View>
   );
 }

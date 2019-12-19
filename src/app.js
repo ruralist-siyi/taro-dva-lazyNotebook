@@ -25,6 +25,7 @@ class App extends Component {
       "pages/mine/index",
       "pages/objective/index",
       "pages/mine/login",
+      "pages/mine/register",
       "pages/objective/add"
     ],
     window: {
