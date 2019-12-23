@@ -25,14 +25,14 @@ export default class Index extends Component {
         hasBorder={true}
         columnNum={2}
           data={[
-            {
-              image: require("../../assets/icons/task.png"),
-              value: "流水账"
-            },
-            {
-              image: require("../../assets/icons/bill.png"),
-              value: "账本"
-            },
+            // {
+            //   image: require("../../assets/icons/task.png"),
+            //   value: "流水账"
+            // },
+            // {
+            //   image: require("../../assets/icons/bill.png"),
+            //   value: "账本"
+            // },
             {
               image: require("../../assets/icons/think.png"),
               value: "开发中"

@@ -1,7 +1,7 @@
 import Taro from "@tarojs/taro";
 import {dispatch} from "./dva";
 
-const baseUrl = "http://localhost:3000";
+const baseUrl = "http://47.98.40.154:3000";
 
 function checkSaveToken(header) {
   const { authorization } = header;
